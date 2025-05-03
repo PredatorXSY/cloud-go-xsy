@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "proto/user";
+
+import "proto/order/order.proto";
+
+// 用户服务定义
+service UserService {
+  // 获取用户信息
+  rpc GetUser(GetUserRequest) returns (GetUserResponse) {}
+  // 创建用户
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
+}
+
+// 用户信息
+message User {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+  int64 created_at = 4;
+  int64 updated_at = 5;
+  repeated order.Order orders = 6;
+}
+
+// 获取用户请求
+message GetUserRequest {
+  string user_id = 1;
+}
+
+// 获取用户响应
+message GetUserResponse {
+  User user = 1;
+}
+
+// 创建用户请求
+message CreateUserRequest {
+  string name = 1;
+  string email = 2;
+}
+
+// 创建用户响应
+message CreateUserResponse {
+  User user = 1;
+} 
